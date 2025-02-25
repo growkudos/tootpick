@@ -70,6 +70,7 @@ GNU Affero General Public License for more details.
 		background-position: 50% 50%;
 		color: var(--color-fg);
 	}
+
 	main * {
 		font-family: inherit;
 		font-size: inherit;
@@ -109,7 +110,7 @@ GNU Affero General Public License for more details.
 		opacity: 0;
 	}
 	#message {
-		margin: .5em 0;
+		margin: .5em 0 2em;
 		padding: 0 .5em;
 		width: 100%;
 		background: transparent;
@@ -132,6 +133,11 @@ GNU Affero General Public License for more details.
 		flex: 1 0 auto;
 		display: flex;
 		align-items: center;
+	}
+
+	#inputline label .prompt {
+		font-size: 1.125rem;
+		font-weight: bold;
 	}
 
 	#inputline label .hint {
@@ -233,6 +239,11 @@ GNU Affero General Public License for more details.
 		color: var(--color-grey-50);
 		border-color: var(--color-red-700);
 	}
+
+	details {
+		margin-top: 2em;
+	}
+
 	footer {
 		padding: 1em;
 		text-align: center;
@@ -265,6 +276,7 @@ GNU Affero General Public License for more details.
 		max-width: 40em;
 		margin: .5em auto;
 	}
+
 	h4 {
 		margin: .5em;
 	}
@@ -544,9 +556,9 @@ GNU Affero General Public License for more details.
 	</blockquote>
 	<form id=inputline>
 		<label class="vertical-stack" title="Enter the address of your Mastodon server (sometimes called an &lsquo;instance&rsquo;).">
-			<span id=server>What&rsquo;s your Mastodon server?</span>
-			<input id=instance>
+			<span class="prompt" id=server>What&rsquo;s your Mastodon server?</span>
 			<span class="hint">For example, social.example.org</span>
+			<input id=instance>
 		</label>
 
 		<label>
@@ -556,6 +568,10 @@ GNU Affero General Public License for more details.
 	</form>
 	<div id=statusline class="hidden">
 	</div>
+
+	<div id=recent>
+	</div>
+
 	<details>
 		<summary>About Mastodon servers</summary>
 
@@ -564,9 +580,6 @@ GNU Affero General Public License for more details.
 		If you&rsquo;re not sure, you can enter your full Mastodon username
 		instead (for example, &lsquo;myname@social.example.org&rsquo;).
 	</details>
-
-	<div id=recent>
-	</div>
 </main>
 <footer>
 	<a href="https://github.com/Juerd/tootpick">Tootpick</a> is a
