@@ -18,7 +18,31 @@ GNU Affero General Public License for more details.
 <meta name=referrer content=no-referrer>
 <meta http-equiv=Content-Security-Policy content="default-src 'self' 'unsafe-inline' https:; connect-src https:; img-src  https:">
 <link rel=icon href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -14 16 16'&gt;&lt;text&gt;🔁&lt;/text&gt;&lt;/svg&gt;">
+<link rel="stylesheet" href="https://static.growkudos.com/fonts/messina-sans/all.css">
 <style>
+	:root {
+		/* Vars from our Magazine design tokens: */
+		--color-grey-50: #f9fafb;
+		--color-grey-200: #e8eaed;
+		--color-grey-300: #d4d7dd;
+		--color-grey-800: #2c343f;
+		--color-black: #14141b;
+		--color-black: #14141b;
+		--color-red-700: #c53030;
+		--color-purple-300: #aa9fee;
+		--color-innovation-blue-700: #4343c5;
+		--radius-xxs: 1px;
+		--radius-xs: 3px;
+		--radius-full: 9999px;
+
+		--color-fg: var(--color-black);
+		--color-fg-faded: var(--color-grey-800);
+		--color-bg: var(--color-grey-50);
+		--color-page: var(--color-grey-300);
+
+		--color-focus: var(--color-purple-300);
+		--outline-focus: 2px solid var(--color-focus);
+	}
 	* {
 		box-sizing: border-box;
 	}
@@ -26,6 +50,9 @@ GNU Affero General Public License for more details.
 		height: 100%;
 		padding: 0;
 		margin: 0;
+		font-family: 'Messina Sans', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu,
+		Cantarell, Helvetica Neue;
+		letter-spacing: -0.0125em;
 	}
 	body {
 		padding: 0;
@@ -35,25 +62,23 @@ GNU Affero General Public License for more details.
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		background: #d9dce6;
+		background: var(--color-bg);
 		background-size: cover;
 		background-position: 50% 50%;
 		line-height: 120%;
-		color: white;
-		font-family: sans-serif;
-		font-size: 15px;
+		color: var(--color-fg);
 	}
 	main * {
-		font: inherit;
+		font-family: inherit;
+		font-size: inherit;
 		border: 0;
-		border-radius: 4px;
+		border-radius: var(--radius-xs);
 	}
-	:focus {
-		outline: 1px dashed #eee;
-		outline-offset: 2px;
+	:focus-visible {
+		outline: var(--outline-focus);
+		outline-offset: 1px;
 	}
 	::placeholder {
-		font-style: italic;
 		color: #666;
 	}
 	a, summary {
@@ -68,10 +93,11 @@ GNU Affero General Public License for more details.
 		display: flex;
 		flex-direction: column;
 		gap: .8em;
-		background: #444b5d;
-		border-radius: 4px;
-		padding: .8em;
-		max-width: 40rem;
+		background: var(--color-bg);
+		border: 1px solid var(--color-grey-300);
+		border-radius: var(--radius-xs);
+		padding: 2em;
+		max-width: 42rem;
 		margin-top: auto;
 		margin-bottom: auto;
 		transition: opacity 1s; /* same as JS timeout */
@@ -81,19 +107,16 @@ GNU Affero General Public License for more details.
 		opacity: 0;
 	}
 	#message {
-		margin: 0;
-		background: white;
-		padding: .5em;
+		margin: .5em 0;
+		padding: 0 .5em;
 		width: 100%;
-		background: #eee;
-		color: #222;
+		background: transparent;
+		color: var(--color-fg);
 		max-height: 9em;
 		overflow: auto;
 		cursor: not-allowed;
-	}
-	#message:hover {
-		background: #ccc;
-		color: #888;
+		border-left: 2px solid;
+		border-radius: 0;
 	}
 	#inputline {
 		display: flex;
@@ -106,32 +129,42 @@ GNU Affero General Public License for more details.
 		display: flex;
 		align-items: center;
 	}
+	#inputline input {
+		padding: 8px;
+	}
 	#inputline span#server {
 		white-space: nowrap;
 		margin-right: .5em;
 	}
+
+	#inputline input#toot {
+		padding-inline: 16px;
+	}
+
 	input#instance {
-		padding: .2em .5em;
 		flex: 1 1 30em;
 		min-width: 10em;
+		border: 1px solid;
+		background-color: transparent;
+		color: var(--color-fg);
 	}
-	input#instance:focus {
-		outline: 0;
+
+	input#remember {
+		accent-color: var(--color-fg);
 	}
+
 	button, input[type="submit"] {
-		background: #5455ff;
-		color: #fff;
-		padding: 7px 10px;
+		background: var(--color-fg);
+		color: var(--color-bg);
+		border-radius: var(--radius-full);
 		font-weight: 500;
 		font-size: 15px;
 		cursor: pointer;
 	}
 	button:hover, input[type="submit"]:hover {
-		background: #6364ff;
+		background: var(--color-fg-faded);
 	}
-	button:focus, input[type="submit"]:focus {
-		outline-offset: -5px;
-	}
+
 	#toot {
 		margin-left: auto;
 	}
@@ -147,43 +180,52 @@ GNU Affero General Public License for more details.
 		flex-direction: column;
 		gap: .5em;
 		align-items: center;
-		padding-top: .5em;
+		padding: .5em;
 		position: relative;
 		margin-top: 1em;
+		border-radius: var(--radius-xs);
 	}
 	#recent > button img {
 		width: 120px;
 		aspect-ratio: 1200/630;
 		object-fit: cover;
+		border-radius: var(--radius-xxs);
 	}
 	button.delete {
-		background: black;
-		color: #df405a;
+		color: var(--color-red-700);
+		background-color: var(--color-bg);
 		position: absolute;
-		padding: .2em .3em;
-		top: .2em;
-		right: .2em;
+		width: 2em;
+		height: 2em;
+		line-height: 1em;
+		top: -0.75em;
+		right: -0.75em;
+		border-radius: var(--radius-full);
+		border: 1px solid;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	button.delete::after {
 		content: '\002716';  /* HEAVY MULTIPLICATION X */
 	}
 	button.delete:hover {
-		background: #df405a;
-		color: white;
+		background: var(--color-red-700);
+		color: var(--color-grey-50);
+		border-color: var(--color-red-700);
 	}
 	footer {
-		color: #1a1a1a;
 		padding: 1em;
 		text-align: center;
 	}
 	#statusline {
 		padding: .5em;
-		background: #9baec8;
-		color: black;
+		background: var(--color-innovation-blue-700);
+		color: var(--color-grey-50);
 	}
 	#statusline.error {
-		background: #df405a;
-		color: black;
+		background: var(--color-red-700);
+		color: var(--color-grey-50);
 	}
 	.hidden {
 		display: none !important;
@@ -198,7 +240,8 @@ GNU Affero General Public License for more details.
 		display: inline-block;
 	}
 	footer details[open] {
-		border: 1px solid #aaa;
+		border: 1px solid var(--color-grey-300);
+		border-radius: var(--radius-xs);
 		padding: .5em;
 		max-width: 40em;
 		margin: .5em auto;
@@ -207,11 +250,10 @@ GNU Affero General Public License for more details.
 		margin: .5em;
 	}
 	@media (prefers-color-scheme: dark) {
-		body {
-			background: #191b22;
-		}
-		footer {
-			color: #aaa;
+		:root {
+			--color-bg: var(--color-black);
+			--color-fg: var(--color-grey-50);
+			--color-fg-faded: var(--color-grey-200)
 		}
 	}
 </style>
@@ -353,7 +395,6 @@ GNU Affero General Public License for more details.
 				// so visitor can see loading happening
 			});
 			dummy.src = thumbnail;
-			document.body.style.backgroundImage = `url(${thumbnail})`;
 			timers.push(setTimeout(redirect, 3500));  // fallback;
 		})
 		.catch((err) => {
@@ -450,7 +491,6 @@ GNU Affero General Public License for more details.
 				button.parentElement.remove();
 			} else {
 				let instance = JSON.parse( button.dataset['instance'] );
-				document.body.style.backgroundImage = `url(${ instance['thumbnail'] })`;
 
 				let recent = getRecent();
 				recent.unshift(instance);
@@ -467,19 +507,18 @@ GNU Affero General Public License for more details.
 	<noscript>
 		<div class=error>
 		Please enable JavaScript to use this service. This page requires
-		JavaScript to keep all the data in your browser. The alternative would
-		be to send message contents to the server, which would be the worse
-		decision privacy-wise.
+		JavaScript to keep all the data in your browser.
 		</div>
 	</noscript>
 	<div>
-		Pick your Mastodon server to toot this message:
+		Enter your Mastodon server to post this message. You&rsquo;ll be able to
+		edit the message on the next page.
 	</div>
 	<blockquote id=message
-		title="You can edit the text on the next page, on your own Mastodon server.">
+		title="You&rsquo;ll be able to edit the message on the next page, on your own Mastodon server.">
 	</blockquote>
 	<form id=inputline>
-		<label title="Enter the domain name of your Mastodon server (sometimes called 'instance')">
+		<label title="Enter the address of your Mastodon server (sometimes called an &lsquo;instance&rsquo;).">
 			<span id=server>Server:</span>
 			<input id=instance placeholder="social.example.org">
 		</label>
@@ -488,6 +527,15 @@ GNU Affero General Public License for more details.
 		</label>
 		<input type=submit id=toot value="Continue">
 	</form>
+	<details>
+		<summary>What&rsquo;s my Mastodon server?</summary>
+
+		Your Mastodon server is the provider you chose when you created your
+		Mastodon account. Your full username includes the address of your
+		server. For example, if your username is
+		&lsquo;myname@mastodon.social&rsquo;, your server is
+		<strong>mastodon.social</strong>.
+	</details>
 	<div id=statusline class="hidden">
 	</div>
 	<div id=recent>
@@ -511,11 +559,10 @@ GNU Affero General Public License for more details.
 		but WITHOUT ANY WARRANTY; without even the implied warranty of
 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 		GNU Affero General Public License for more details.
-		<h4>Privacy poliy</h4>
+		<h4>Privacy policy</h4>
 		Tootpick does not collect or store any of your data except on your own
 		computer. The server that hosts Tootpick, and the Mastodon servers you
 		enter, will probably store your IP address and User-Agent (browser)
 		identification in a web server log file.
 	</details>
 </footer>
-
